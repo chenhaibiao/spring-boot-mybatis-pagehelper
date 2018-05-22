@@ -1,8 +1,8 @@
 package com.pagehelper;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.pagehelper.domain.model.Person;
-import com.pagehelper.page.PageInfo;
 import com.pagehelper.service.PersonService;
 
 import org.junit.Assert;
@@ -49,8 +49,8 @@ public class PersonMapperTests {
 
 	@Test
 	public void testFindByPage() {
-		Page<Person> persons = personService.findByPage(2, 2);
-		// 需要把Page包装成PageInfo对象才能序列化。该插件也默认实现了一个PageInfo
+		Page<Person> persons = personService.findByPage(1, 2);
+		// 需要把Page包装成PageInfo对象才能序列化
 		PageInfo<Person> pageInfo = new PageInfo<>(persons);
 		Assert.assertNotNull(persons);
 		logger.debug("test find by page: {}", JSON.toJSONString(pageInfo));
