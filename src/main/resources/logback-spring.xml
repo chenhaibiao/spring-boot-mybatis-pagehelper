@@ -1,0 +1,32 @@
+<configuration>
+
+	<property name="log.history" value="30"/>
+	<property name="log.path" value="/data/logs/pagehelper"/>
+	<property name="log.file" value="/data/logs/pagehelper/pagehelper.log"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder 默认配置为PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{200}.%M:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.file}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.file}.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>${log.history}</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{200}.%M:%L - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+	<logger name="com.pagehelper" level="DEBUG"/>
+
+</configuration>

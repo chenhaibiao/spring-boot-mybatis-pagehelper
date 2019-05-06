@@ -1,12 +1,15 @@
 package com.pagehelper.service;
 
-import com.github.pagehelper.Page;
 import com.pagehelper.domain.model.Person;
 
 import java.util.List;
 
 public interface PersonService {
 
+    /**
+     * findAll
+     * @return
+     */
     List<Person> findAll();
 
     /**
@@ -15,7 +18,11 @@ public interface PersonService {
      * @param pageSize 每页显示记录数
      * @return
      */
-    Page<Person> findByPage(int pageNo, int pageSize);
+    List<Person> findByPage(int pageNo, int pageSize);
 
+    /**
+     * insert
+     * @param person
+     */
     void insert(Person person);
 }

@@ -1,9 +1,12 @@
 package com.pagehelper.controller;
 
-import com.github.pagehelper.Page;
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 import com.pagehelper.domain.model.Person;
 import com.pagehelper.service.PersonService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,8 @@ import java.util.List;
 
 @RestController
 public class DataController {
+
+    private static final Logger logger = LoggerFactory.getLogger(DataController.class);
     
     @Autowired
     PersonService personService;
@@ -25,15 +30,17 @@ public class DataController {
     }
 
     @RequestMapping("/all")
-    public List<Person> sort() {
-        List<Person> people = personService.findAll();
-        return people;
+    public List<Person> all() {
+        List<Person> list = personService.findAll();
+        return list;
     }
 
     @RequestMapping("/page")
-    public Page<Person> page(@RequestParam("pageNo") int pageNo, @RequestParam("pageSize") int pageSize) {
-        Page<Person> pagePeople = personService.findByPage(pageNo, pageSize);
-        return pagePeople;
+    public Object page(@RequestParam("pageNo") int pageNo, @RequestParam("pageSize") int pageSize) {
+        logger.info("page: {}, {}", pageNo, pageSize);
+        List<Person> pagePeople = personService.findByPage(pageNo, pageSize);
+        System.out.println(JSON.toJSON(pagePeople));
+        return new PageInfo<Person>(pagePeople);
     }
 
 }
